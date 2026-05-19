@@ -23,7 +23,9 @@ void I2C_WriteSEEPROM(void *SrcData, uint32_t EEpromAddr, uint16_t NbBytes)
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   for(y = 0; y <= (NbBytes/8); y++)   `
+```C
+for(y = 0; y <= (NbBytes/8); y++)
+```
 
 L'EEPROM fonctionne par pages mémoire de 8 octets.
 
@@ -33,7 +35,9 @@ Cette boucle s'exécute pour chaque page nécessaire à l'écriture globale.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   if(y == (NbBytes/8))  {      NbBytesPage = NbBytes - 8*(y);  }  else  {      NbBytesPage = 8;  }   `
+```C
+if(y == (NbBytes/8))  {      NbBytesPage = NbBytes - 8*(y);  }  else  {      NbBytesPage = 8;  }
+```
 
 Cette partie définit combien d'octets seront écrits lors du passage actuel.
 
@@ -45,7 +49,9 @@ Cette partie définit combien d'octets seront écrits lors du passage actuel.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   if (NbBytesPage == 0)   {      break;   }   `
+```C
+if (NbBytesPage == 0)   {      break;   }
+```
 
 Si le nombre d'octets total est un multiple de 8.
 
@@ -57,7 +63,9 @@ Cette instruction coupe la boucle pour éviter d'ouvrir une communication I2C in
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   do  {      i2c_start();  } while(!i2c_write(MCP79411_EEPROM_W));   `
+```C
+do  {      i2c_start();  } while(!i2c_write(MCP79411_EEPROM_W));
+```
 
 Après une écriture, l'EEPROM grave les données en interne.
 
@@ -69,7 +77,9 @@ Le programme utilise un "Repeated Start" pour relancer la demande jusqu'à ce qu
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_write((uint8_t)EEpromAddr + (y * 8));   `
+```C
+i2c_write((uint8_t)EEpromAddr + (y * 8));
+```
 
 Cette instruction envoie l'adresse de destination dans l'EEPROM.
 
@@ -83,7 +93,9 @@ L'adresse est décalée de 8 en 8 automatiquement à chaque nouvelle page.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   for(i = 0; i < NbBytesPage; i++)  {     i2c_write(i2cData[i+(y*8)]);  }   `
+```C
+for(i = 0; i < NbBytesPage; i++)  {     i2c_write(i2cData[i+(y*8)]);  }
+```
 
 Cette boucle envoie les octets un par un pour la page courante.
 
@@ -93,7 +105,9 @@ L'index de lecture cible la bonne donnée dans le tableau source.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_stop();   `
+```C
+i2c_stop();
+```
 
 Cette instruction termine la communication I2C et libère le bus.
 
@@ -106,13 +120,17 @@ Lecture dans l'EEPROM
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   void I2C_ReadSEEPROM(void *DstData, uint32_t EEpromAddr, uint16_t NbBytes)   `
+```C
+void I2C_ReadSEEPROM(void *DstData, uint32_t EEpromAddr, uint16_t NbBytes)
+```
 
 ### Attente de disponibilité
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   do  {      i2c_start();      ack = i2c_write(MCP79411_EEPROM_W);  } while (ack == false);   `
+```C
+do  {      i2c_start();      ack = i2c_write(MCP79411_EEPROM_W);  } while (ack == false);
+```
 
 Le programme attend que l'EEPROM soit disponible avant de commencer.
 
@@ -122,7 +140,9 @@ Cela évite un plantage si une sauvegarde vient tout juste de se terminer.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_write(EEpromAddr);   `
+```C
+i2c_write(EEpromAddr);
+```
 
 Permet d'indiquer au composant l'adresse de départ de la lecture.
 
@@ -130,7 +150,9 @@ Permet d'indiquer au composant l'adresse de départ de la lecture.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_reStart();   `
+```C
+i2c_reStart();
+```
 
 Le restart permet de conserver le contrôle du bus sans envoyer de STOP.
 
@@ -140,7 +162,9 @@ Cela permet d'enchaîner directement avec la phase de réception.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_write(MCP79411_EEPROM_R);   `
+```C
+i2c_write(MCP79411_EEPROM_R);
+```
 
 Le composant reçoit l'ordre et passe en mode émetteur.
 
@@ -148,7 +172,9 @@ Le composant reçoit l'ordre et passe en mode émetteur.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   for(i = 0; i < NbBytes; i++)   `
+```C
+for(i = 0; i < NbBytes; i++)
+```
 
 Boucle principale de réception des octets.
 
@@ -160,29 +186,29 @@ Contrairement à l'écriture, il n'y a pas de limite de page en lecture.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pointeur[i] = i2c_read(true);   `
+```C
+pointeur[i] = i2c_read(true);
+```
 
 Le microcontrôleur stocke la donnée et envoie un ACK (true).
 
 Cela signifie :
 
-Plaintext
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   J'ai bien reçu, envoie la suite   `
+J'ai bien reçu, envoie la suite
 
 #### Dernier octet
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   if (i == (NbBytes - 1))   {      pointeur[i] = i2c_read(false);   }   `
+```C
+if (i == (NbBytes - 1))   {      pointeur[i] = i2c_read(false);   }
+```
 
 Pour la dernière donnée réclamée, le microcontrôleur envoie un NACK (false).
 
 Cela signifie :
 
-Plaintext
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Lecture terminée   `
+Lecture terminée
 
 Cette étape est obligatoire pour que le composant arrête d'émettre.
 
@@ -190,7 +216,9 @@ Cette étape est obligatoire pour que le composant arrête d'émettre.
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   i2c_stop();   `
+```C
+i2c_stop();
+```
 
 Termine la communication I2C proprement et libère le bus.
 
@@ -205,7 +233,9 @@ dans un premiere temps,
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   if(USBReadBuffer[0] =='!')   `
+```C
+if(USBReadBuffer[0] =='!')
+```
 
 Va regarder si il y a bien le debut de la trame qui est un "!".
 
@@ -213,7 +243,9 @@ ensuite,
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   for(index = 0; index <= appData.numBytesRead; index++){      if(USBReadBuffer[index] == '#'){          validation = 1;      }  }   `
+```C
+for(index = 0; index <= appData.numBytesRead; index++){      if(USBReadBuffer[index] == '#'){          validation = 1;      }  }
+```
 
 Nous allons scanner la trame complete pour trouver si il y a le caractere de fin de trame qui est "#".
 
@@ -231,7 +263,9 @@ Nous enregistrons aussi la position dans le tableau de caractere du debut de la 
 
 Extrait de code
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML        `for(index = 0; index <= appData.numBytesRead; index++){              if(USBReadBuffer[index] == 'S' && first_S_found == false){                  start_signal = index +2;                  first_S_found = true;                  USBReadBuffer[index] = '\0';              }          }`
+```C
+for(index = 0; index <= appData.numBytesRead; index++){              if(USBReadBuffer[index] == 'S' && first_S_found == false){                  start_signal = index +2;                  first_S_found = true;                  USBReadBuffer[index] = '\0';              }          }
+```
 
 #### Important !
 

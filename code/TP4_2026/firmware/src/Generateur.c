@@ -35,6 +35,14 @@ void  GENSIG_Initialize(S_ParamGen *pParam)
     {
         //met dans la variable de retour les données sauvegarder
         *pParam = valueParamGen;
+        
+        //Lignes servant à remettre des valeurs valables dans l'EEPROM
+        //Decommenter pour reparer
+        //pParam->Amplitude = 2500;
+        //pParam->Forme = SignalSinus;
+        //pParam->Frequence = 20;
+        //pParam->Magic = MAGIC;
+        //pParam->Offset = 2500; 
 
     }
     else //si rien n'etait sauvegarder

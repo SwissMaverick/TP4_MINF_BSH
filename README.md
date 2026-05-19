@@ -4,6 +4,38 @@ TP4\_MINF
 Explication complementaire gestion memoire de l'EEPROM
 ------------------------------------------------------
 
+#### Fonction
+
+```C
+void I2C_InitMCP79411(void)
+{
+   bool Fast = true;
+   i2c_init( Fast );
+}
+```
+
+---
+
+#### Explication
+
+Cette fonction initialise la communication I2C.
+
+```C
+bool Fast = true;
+```
+
+Cette variable permet de demander une initialisation en mode rapide.
+
+Ensuite :
+
+```C
+i2c_init(Fast);
+```
+
+configure le module I2C du microcontrôleur.
+
+---
+
 Écriture dans l'EEPROM
 ----------------------
 

@@ -126,7 +126,11 @@ L'adresse est décalée de 8 en 8 automatiquement à chaque nouvelle page.
 
 #### Exemple
 
-**Adresse de départyAdresse actuelle**0000180216
+| Adresse de départ | y                 | Adresse actuelle  |
+| ----------------- | ----------------- | ----------------- |
+| 0                 | 0                 | 0                 |
+| 0                 | 1                 | 8                 |
+| 0                 | 2                 | 16                |
 
 ### Envoi des données
 
@@ -294,7 +298,13 @@ Si c'est le cas, la trame est conciderer comme valide pour la prochaine etape
 
 Etand donné que nous devons trouvé les infos suivantes :
 
-**Information dans la trameCaractere qui defini l'information**formesSfrequenceFamplitudeAoffsetOsauvegardeW
+| Information dans la trame | Caractere qui defini l'information |
+| ------------------------- | ---------------------------------- |
+| formes                    | S                                  |
+| frequence                 | F                                  |
+| amplitude                 | A                                  |
+| offset                    | O                                  |
+| sauvegarde                | W                                  |
 
 Une fois que nous avons trouver un des caractere qui defini l'information, nous remplacons ce caracter par "\\0" pour definir une fin de chaine.
 

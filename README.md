@@ -47,7 +47,10 @@ Cette partie définit combien d'octets seront écrits lors du passage actuel.
 
 #### Deux cas possibles
 
-**SituationAction**Dernière page à écrireLe programme calcule les octets restants précisPage intermédiaire ou de départLe programme écrit une page complète de 8 octets
+| Situation                       | Action                                           |
+| ------------------------------- | ------------------------------------------------ |
+| Dernière page à écrire          | Le programme calcule les octets restants précis  |
+| Page intermédiaire ou de départ | Le programme écrit une page complète de 8 octets |
 
 ### Prévention des transactions vides
 

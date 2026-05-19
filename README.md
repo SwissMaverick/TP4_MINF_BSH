@@ -235,9 +235,7 @@ pointeur[i] = i2c_read(true);
 
 Le microcontrôleur stocke la donnée et envoie un ACK (true).
 
-Cela signifie :
-
-J'ai bien reçu, envoie la suite
+Cela signifie que le PIC a bien reçu les données et que l'EEPROM peut envoyer la suite.
 
 #### Dernier octet
 
@@ -249,9 +247,7 @@ if (i == (NbBytes - 1))   {      pointeur[i] = i2c_read(false);   }
 
 Pour la dernière donnée réclamée, le microcontrôleur envoie un NACK (false).
 
-Cela signifie :
-
-Lecture terminée
+Cela signifie une lecture terminée
 
 Cette étape est obligatoire pour que le composant arrête d'émettre.
 
@@ -268,7 +264,7 @@ Termine la communication I2C proprement et libère le bus.
 Explication complementaire decodage de la trame
 -----------------------------------------------
 
-Le decodage se faire en plusieurs etape pouvant mener a une detection d'erreur.
+Le decodage peut se faire en plusieurs étape pouvant mener a une détection d'erreur.
 
 ### 1\. Reperage du debut et fin de trame
 
@@ -290,13 +286,13 @@ Extrait de code
 for(index = 0; index <= appData.numBytesRead; index++){      if(USBReadBuffer[index] == '#'){          validation = 1;      }  }
 ```
 
-Nous allons scanner la trame complete pour trouver si il y a le caractere de fin de trame qui est "#".
+Nous allons scanner la trame complète pour trouver s'il y'a le caractere de fin de trame qui est "#".
 
-Si c'est le cas, la trame est conciderer comme valide pour la prochaine etape
+Si c'est le cas, la trame est conciderée comme valide pour la prochaine étape
 
-### 2\. Reperage des debuts de chaque information
+### 2\. Repérage des débuts de chaque information
 
-Etand donné que nous devons trouvé les infos suivantes :
+Etant donné que nous devons trouver les infos suivantes :
 
 | Information dans la trame | Caractere qui defini l'information |
 | ------------------------- | ---------------------------------- |
@@ -306,9 +302,9 @@ Etand donné que nous devons trouvé les infos suivantes :
 | offset                    | O                                  |
 | sauvegarde                | W                                  |
 
-Une fois que nous avons trouver un des caractere qui defini l'information, nous remplacons ce caracter par "\\0" pour definir une fin de chaine.
+Une fois que nous avons trouvé un des caractères qui défini l'information, nous remplacons ce caractère par "\\0" pour définir une fin de chaine.
 
-Nous enregistrons aussi la position dans le tableau de caractere du debut de la valeur numerique.
+Nous enregistrons aussi la position dans le tableau de caractères du debut de la valeur numérique.
 
 Extrait de code
 
@@ -318,16 +314,16 @@ for(index = 0; index <= appData.numBytesRead; index++){              if(USBReadB
 
 #### Important !
 
-Nous devons faire "+2" pour trouver le debut d'une valeur car la trame etant xxxF=3000xxxx, nous trouvons la valuer de F a l'adresse 3 et le debut du 3000 a l'adresse 5.
+Nous devons faire un "+2" pour trouver le debut d'une valeur car la trame etant xxxF=3000xxxx, nous trouvons la valeur de F a l'adresse 3 et le debut du 3000 a l'adresse 5.
 
-Autre information importante, nous devons avoir une verification pour trouver si un "S" a été vu car le sinus etant defini aussi par "S", il sera detecter et supprimer ce qui nous fera perdre l'information du sinus.
+Autre information importante, nous devons avoir une vérification pour trouver si un "S" a été vu car le sinus etant defini aussi par "S", il sera detecté et supprimér ce qui nous fera perdre l'information du sinus.
 
 ### 3\. Optention des informations grace a atoi
 
-la fonction atoi est une fonction permettant de transformer une chaine de caractere en int.
+La fonction atoi est une fonction permettant de transformer une chaine de caractere en int.
 
-en lui donnant une chaine de caractere la fonction va du debut de la chaine jusqu'au caractere de fin de chaine de caractere "\\0", mais il est aussi possible de faire commencer la lecture au milieu d'une chaine donné.
+En lui donnant une chaine de caractères, la fonction va du début de la chaine jusqu'au caractere de fin de chaine de caractere "\\0", mais il est aussi possible de faire commencer la lecture au milieu d'une chaine donnée.
 
-comme ci dessus, nous commencons la lecture de l'amplitude au debut de l'amplitude et la fonction va lire jusqu'au caractere de fin mis a la place du debut de la trame de l'offset.
+Comme ci dessus, nous commencons la lecture de l'amplitude au debut de l'amplitude et la fonction va lire jusqu'au caractere de fin mis a la place du debut de la trame de l'offset.
 
-ce qui fait que nous lirons uniquement la valeur qui nous interesse.
+Ce qui fait que nous lirons uniquement la valeur qui nous interesse.

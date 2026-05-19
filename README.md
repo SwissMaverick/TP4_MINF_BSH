@@ -17,7 +17,11 @@ void I2C_WriteSEEPROM(void *SrcData, uint32_t EEpromAddr, uint16_t NbBytes)
 
 #### Paramètres
 
-**ParamètreDescription**SrcDataAdresse des données à écrireEEpromAddrAdresse de départ dans l'EEPROMNbBytesNombre d'octets à écrire
+| Paramètre  | Description                     |
+| ---------- | ------------------------------- |
+| SrcData    | Adresse des données à écrire    |
+| EEpromAddr | Adresse de départ dans l'EEPROM |
+| NbBytes    | Nombre d'octets à écrire        |
 
 ### Boucle principale d'écriture
 
